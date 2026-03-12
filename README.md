@@ -1,7 +1,7 @@
 # 🎮 Streets of Russia — Инструкция
 <p align="center">**Серёга** - обычный чувак из 90-х. Он просто пытается добраться домой через криминальный район.</p>
-<img src="https://github.com/user-attachments/assets/7785e671-08ae-4e33-bf2a-4c1fed7fc6a5" width="90%"/>
-<img src="https://github.com/user-attachments/assets/0763dcc6-05c3-409e-90b8-07812437f4d9" width="600">
+<img src="https://github.com/user-attachments/assets/7785e671-08ae-4e33-bf2a-4c1fed7fc6a5" width="80%"/>
+<img src="https://github.com/user-attachments/assets/0763dcc6-05c3-409e-90b8-07812437f4d9" width="700">
 
 ---
 
