@@ -1,7 +1,8 @@
 # 🎮 Streets of Russia — Инструкция
+<img src="https://github.com/user-attachments/assets/7785e671-08ae-4e33-bf2a-4c1fed7fc6a5" width="50%"/>
 
 **Серёга**, обычный чувак из 90-х. Он просто пытается добраться домой через криминальный район.
-<img src="https://github.com/user-attachments/assets/7785e671-08ae-4e33-bf2a-4c1fed7fc6a5" width="50%"/>
+<img src="https://github.com/user-attachments/assets/0763dcc6-05c3-409e-90b8-07812437f4d9" width="400">
 
 ---
 
@@ -20,18 +21,23 @@
 ### На телефоне (Chrome):
 На экране появятся виртуальные кнопки (крестовина + кнопки A, S, P)
 
-<img src="https://github.com/user-attachments/assets/0763dcc6-05c3-409e-90b8-07812437f4d9" width="400">
-
 ## 👿 Враги
 
 | Враг | Описание | Особенность |
 |------|----------|-------------|
-| **Гопник** 🍺 | Бухой, в трениках Adidas | Медленный но агрессивный | <img src="https://github.com/user-attachments/assets/b811d229-8301-4609-b363-7558463f0db5" width="180">
-| **Нарик** 🔪 | Худой, в капюшоне | Заходит со спины! Роняет нож | <img src="https://github.com/user-attachments/assets/c5461f15-6573-40c3-bd2f-5cf4a4d16925" width="180">
-| **Скин** 🏏 | Лысый с битой | Сильный, роняет биту. Босс 1-го уровня | <img src="https://github.com/user-attachments/assets/0cd3383c-74d9-458f-8e09-762bcfab8177" width="300">
-| **Магомед** 📱 | В кепке с усами | Трусливый, но если ударить — звонит подкрепление! | <img src="https://github.com/user-attachments/assets/790138c9-7459-44a0-b1b3-f068dc455e3f" width="300">
-| **Мент** 👮 | Милиционер | Бьёт дубинкой, при низком HP стреляет! Босс 2-го уровня | <img src="https://github.com/user-attachments/assets/efdfa414-679a-4fa4-95d4-f3785e158df1" width="400">
-| **ОМОН** 🛡️ | В броне с калашом | Очень опасный финальный босс! Стреляет очередями | <img src="https://github.com/user-attachments/assets/2ffefd51-ff79-418c-a3d9-141f471b93b6" width="500">
+| **Гопник** 🍺 | Бухой, в трениках Adidas | Медленный но агрессивный | 
+| **Нарик** 🔪 | Худой, в капюшоне | Заходит со спины! Роняет нож | 
+| **Скин** 🏏 | Лысый с битой | Сильный, роняет биту. Босс 1-го уровня | 
+| **Магомед** 📱 | В кепке с усами | Трусливый, но если ударить — звонит подкрепление! |
+| **Мент** 👮 | Милиционер | Бьёт дубинкой, при низком HP стреляет! Босс 2-го уровня | 
+| **ОМОН** 🛡️ | В броне с калашом | Очень опасный финальный босс! Стреляет очередями |
+
+<img src="https://github.com/user-attachments/assets/b811d229-8301-4609-b363-7558463f0db5" width="180">
+<img src="https://github.com/user-attachments/assets/c5461f15-6573-40c3-bd2f-5cf4a4d16925" width="180">
+<img src="https://github.com/user-attachments/assets/0cd3383c-74d9-458f-8e09-762bcfab8177" width="300">
+<img src="https://github.com/user-attachments/assets/790138c9-7459-44a0-b1b3-f068dc455e3f" width="300">
+<img src="https://github.com/user-attachments/assets/efdfa414-679a-4fa4-95d4-f3785e158df1" width="400">
+<img src="https://github.com/user-attachments/assets/2ffefd51-ff79-418c-a3d9-141f471b93b6" width="500">
 
 ### Уровни:
 
@@ -46,7 +52,6 @@
 
 ## 💡 Советы
 
-- **Комбо**: Жми удар быстро 3 раза подряд — третий удар сильнее и трясёт экран!
 - **Оружие**: Подбирай ножи и биты — они наносят больше урона
 - **Магомед**: Не трогай его если не готов к бою с четверыми!
 - **Мент**: Добивай быстро, пока не достал пистолет
@@ -63,11 +68,9 @@
 | Тормозит | Попробуй Chrome, он самый быстрый для игр |
 | Не работает управление | Кликни по игре чтобы она получила фокус |
 | Мелкое изображение | Игра автоматически масштабируется под окно |
+
 <img src="https://github.com/user-attachments/assets/53a06eb1-e295-4c3c-a89d-4bdba3b0b471" width="500"><img src="https://github.com/user-attachments/assets/ab3e20fb-251a-403d-9808-57f4d9d3fa94" width="500"> 
 
 **Удачи! Помоги Сереге добраться до дома! 🏠**
-<img width="1639" height="901" alt="image" src="https://github.com/user-attachments/assets/b1b972a5-e2ba-41ac-bd01-a27fd8f7a982" />
+<img src="https://github.com/user-attachments/assets/b1b972a5-e2ba-41ac-bd01-a27fd8f7a982" width="500">
 
-
-![Uploading image.png…]()
-дачи! Помоги Сереге добраться до дома! 🏠**
