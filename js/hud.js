@@ -1,207 +1,137 @@
-// HUD - Health bar, lives, score, weapon indicator, boss health
+// hud.js - ПОЛНАЯ ВЕРСИЯ С ДЖОЙСТИКОМ
 class HUD {
     constructor(scene) {
         this.scene = scene;
         const ui = scene.add.container(0, 0).setScrollFactor(0).setDepth(5000);
         
-        // Player name
-        this.nameText = scene.add.text(10, 6, 'СЕРЁГА', {
-            fontSize: '10px', fontFamily: 'monospace', fill: '#fff',
-            stroke: '#000', strokeThickness: 2
-        });
+        // --- Стандартные элементы интерфейса ---
+        this.nameText = scene.add.text(10, 6, 'СЕРЁГА', { fontSize: '10px', fill: '#fff', stroke: '#000', strokeThickness: 2 });
         ui.add(this.nameText);
         
-        // HP bar background
-        this.hpBg = scene.add.rectangle(10, 20, 80, 8, COLOR_HP_BG).setOrigin(0, 0);
-        ui.add(this.hpBg);
+        this.hpBg = scene.add.rectangle(10, 20, 80, 8, 0x333333).setOrigin(0, 0);
+        this.hpFill = scene.add.rectangle(10, 20, 80, 8, 0x00ff00).setOrigin(0, 0);
+        ui.add([this.hpBg, this.hpFill]);
         
-        // HP bar fill
-        this.hpFill = scene.add.rectangle(10, 20, 80, 8, COLOR_HP_GREEN).setOrigin(0, 0);
-        ui.add(this.hpFill);
-        
-        // HP bar border
-        this.hpBorder = scene.add.rectangle(10, 20, 80, 8).setOrigin(0, 0);
-        this.hpBorder.setStrokeStyle(1, 0xffffff);
-        ui.add(this.hpBorder);
-        
-        // Lives
-        this.livesText = scene.add.text(10, 32, '❤❤❤', {
-            fontSize: '10px', fill: '#ff4444'
-        });
+        this.livesText = scene.add.text(10, 32, '❤❤❤', { fontSize: '10px', fill: '#ff4444' });
         ui.add(this.livesText);
         
-        // Score
-        this.scoreText = scene.add.text(GAME_WIDTH - 10, 6, 'ОЧКИ: 0', {
-            fontSize: '10px', fontFamily: 'monospace', fill: '#fff',
-            stroke: '#000', strokeThickness: 2
-        }).setOrigin(1, 0);
+        this.scoreText = scene.add.text(GAME_WIDTH - 10, 6, 'ОЧКИ: 0', { fontSize: '10px', fill: '#fff' }).setOrigin(1, 0);
         ui.add(this.scoreText);
-        
-        // Weapon indicator
-        this.weaponText = scene.add.text(10, 44, '', {
-            fontSize: '9px', fontFamily: 'monospace', fill: '#ffff00',
-            stroke: '#000', strokeThickness: 1
-        });
+
+        this.weaponText = scene.add.text(10, 44, '', { fontSize: '9px', fill: '#ffff00' });
         ui.add(this.weaponText);
-        
-        // Level name
-        this.levelText = scene.add.text(GAME_WIDTH / 2, 6, '', {
-            fontSize: '10px', fontFamily: 'monospace', fill: '#aaa',
-            stroke: '#000', strokeThickness: 2
-        }).setOrigin(0.5, 0);
-        ui.add(this.levelText);
-        
-        // Boss health (hidden by default)
-        this.bossNameText = scene.add.text(GAME_WIDTH / 2, GAME_HEIGHT - 30, '', {
-            fontSize: '10px', fontFamily: 'monospace', fill: '#ff4444',
-            stroke: '#000', strokeThickness: 2
-        }).setOrigin(0.5, 0);
-        this.bossNameText.visible = false;
-        ui.add(this.bossNameText);
-        
-        this.bossHpBg = scene.add.rectangle(GAME_WIDTH / 2 - 60, GAME_HEIGHT - 18, 120, 8, COLOR_HP_BG).setOrigin(0, 0);
-        this.bossHpBg.visible = false;
-        ui.add(this.bossHpBg);
-        
-        this.bossHpFill = scene.add.rectangle(GAME_WIDTH / 2 - 60, GAME_HEIGHT - 18, 120, 8, COLOR_HP_RED).setOrigin(0, 0);
-        this.bossHpFill.visible = false;
-        ui.add(this.bossHpFill);
-        
-        // GO arrow
-        this.goArrow = scene.add.text(GAME_WIDTH - 30, GAME_HEIGHT / 2, '▶', {
-            fontSize: '20px', fill: '#ffff00',
-            stroke: '#000', strokeThickness: 2
-        }).setOrigin(0.5, 0.5);
-        this.goArrow.visible = false;
+
+        // Босс-бар
+        this.bossNameText = scene.add.text(GAME_WIDTH / 2, GAME_HEIGHT - 30, '', { fontSize: '10px', fill: '#ff4444' }).setOrigin(0.5, 0).setVisible(false);
+        this.bossHpFill = scene.add.rectangle(GAME_WIDTH / 2 - 60, GAME_HEIGHT - 18, 120, 8, 0xff0000).setOrigin(0, 0).setVisible(false);
+        ui.add([this.bossNameText, this.bossHpFill]);
+
+        // Стрелка GO
+        this.goArrow = scene.add.text(GAME_WIDTH - 30, GAME_HEIGHT / 2, '▶', { fontSize: '20px', fill: '#ffff00' }).setOrigin(0.5).setVisible(false);
         ui.add(this.goArrow);
-        scene.tweens.add({
-            targets: this.goArrow,
-            x: GAME_WIDTH - 20,
-            duration: 400,
-            yoyo: true,
-            repeat: -1
-        });
-        
-        // Mobile controls (touch)
+
+        // --- МОБИЛЬНОЕ УПРАВЛЕНИЕ (ДЖОЙСТИК) ---
         this.setupMobileControls(scene, ui);
-        
         this.ui = ui;
     }
 
     setupMobileControls(scene, ui) {
         if (!scene.sys.game.device.input.touch) return;
+
+        // Разрешаем мультитач
+        scene.input.addPointer(2);
+
+        // Объект ввода для игрока
+        scene.virtualInput = { left: false, right: false, up: false, down: false, attack: false, special: false, pickup: false };
+
+        // Графика джойстика
+        this.joyBase = scene.add.circle(0, 0, 35, 0xffffff, 0.15).setVisible(false).setDepth(6000);
+        this.joyThumb = scene.add.circle(0, 0, 15, 0xffffff, 0.4).setVisible(false).setDepth(6001);
+        ui.add([this.joyBase, this.joyThumb]);
+
+        // Зона джойстика (левая половина экрана)
+        const joyZone = scene.add.rectangle(0, 0, GAME_WIDTH / 2, GAME_HEIGHT).setOrigin(0, 0).setInteractive();
         
-        // D-pad
-        const padX = 80, padY = GAME_HEIGHT - 50;
-        const padSize = 30;
-        const padAlpha = 0.3;
-        
-        // Up
-        this.btnUp = scene.add.rectangle(padX, padY - padSize, padSize, padSize, 0xffffff, padAlpha)
-            .setInteractive().setScrollFactor(0);
-        // Down
-        this.btnDown = scene.add.rectangle(padX, padY + padSize, padSize, padSize, 0xffffff, padAlpha)
-            .setInteractive().setScrollFactor(0);
-        // Left
-        this.btnLeft = scene.add.rectangle(padX - padSize, padY, padSize, padSize, 0xffffff, padAlpha)
-            .setInteractive().setScrollFactor(0);
-        // Right
-        this.btnRight = scene.add.rectangle(padX + padSize, padY, padSize, padSize, 0xffffff, padAlpha)
-            .setInteractive().setScrollFactor(0);
-        
-        // Attack button
-        this.btnAttack = scene.add.circle(GAME_WIDTH - 50, GAME_HEIGHT - 50, 22, 0xff4444, padAlpha)
-            .setInteractive().setScrollFactor(0);
-        scene.add.text(GAME_WIDTH - 50, GAME_HEIGHT - 50, 'A', {
-            fontSize: '14px', fill: '#fff'
-        }).setOrigin(0.5).setScrollFactor(0).setDepth(5001);
-        
-        // Special button
-        this.btnSpecial = scene.add.circle(GAME_WIDTH - 90, GAME_HEIGHT - 35, 18, 0x4444ff, padAlpha)
-            .setInteractive().setScrollFactor(0);
-        scene.add.text(GAME_WIDTH - 90, GAME_HEIGHT - 35, 'S', {
-            fontSize: '12px', fill: '#fff'
-        }).setOrigin(0.5).setScrollFactor(0).setDepth(5001);
-        
-        // Pickup button
-        this.btnPickup = scene.add.circle(GAME_WIDTH - 90, GAME_HEIGHT - 70, 18, 0x44ff44, padAlpha)
-            .setInteractive().setScrollFactor(0);
-        scene.add.text(GAME_WIDTH - 90, GAME_HEIGHT - 70, 'P', {
-            fontSize: '12px', fill: '#fff'
-        }).setOrigin(0.5).setScrollFactor(0).setDepth(5001);
-        
-        [this.btnUp, this.btnDown, this.btnLeft, this.btnRight, this.btnAttack, this.btnSpecial, this.btnPickup].forEach(b => {
-            ui.add(b);
-            b.setDepth(5001);
+        joyZone.on('pointerdown', (pointer) => {
+            this.joyBase.setPosition(pointer.x, pointer.y).setVisible(true);
+            this.joyThumb.setPosition(pointer.x, pointer.y).setVisible(true);
+            this.isDragging = true;
         });
-        
-        // Virtual input state
-        scene.virtualInput = { up: false, down: false, left: false, right: false, attack: false, special: false, pickup: false };
-        
-        this.btnUp.on('pointerdown', () => scene.virtualInput.up = true);
-        this.btnUp.on('pointerup', () => scene.virtualInput.up = false);
-        this.btnUp.on('pointerout', () => scene.virtualInput.up = false);
-        this.btnDown.on('pointerdown', () => scene.virtualInput.down = true);
-        this.btnDown.on('pointerup', () => scene.virtualInput.down = false);
-        this.btnDown.on('pointerout', () => scene.virtualInput.down = false);
-        this.btnLeft.on('pointerdown', () => scene.virtualInput.left = true);
-        this.btnLeft.on('pointerup', () => scene.virtualInput.left = false);
-        this.btnLeft.on('pointerout', () => scene.virtualInput.left = false);
-        this.btnRight.on('pointerdown', () => scene.virtualInput.right = true);
-        this.btnRight.on('pointerup', () => scene.virtualInput.right = false);
-        this.btnRight.on('pointerout', () => scene.virtualInput.right = false);
-        this.btnAttack.on('pointerdown', () => scene.virtualInput.attack = true);
-        this.btnAttack.on('pointerup', () => scene.virtualInput.attack = false);
-        this.btnSpecial.on('pointerdown', () => scene.virtualInput.special = true);
-        this.btnSpecial.on('pointerup', () => scene.virtualInput.special = false);
-        this.btnPickup.on('pointerdown', () => scene.virtualInput.pickup = true);
-        this.btnPickup.on('pointerup', () => scene.virtualInput.pickup = false);
+
+        scene.input.on('pointermove', (pointer) => {
+            if (!this.isDragging) return;
+            
+            // Если палец ушел в правую часть, но начинал в левой - продолжаем
+            const dist = Phaser.Math.Distance.Between(this.joyBase.x, this.joyBase.y, pointer.x, pointer.y);
+            const angle = Phaser.Math.Angle.Between(this.joyBase.x, this.joyBase.y, pointer.x, pointer.y);
+            const maxDist = 30;
+
+            const targetX = this.joyBase.x + Math.cos(angle) * Math.min(dist, maxDist);
+            const targetY = this.joyBase.y + Math.sin(angle) * Math.min(dist, maxDist);
+            
+            this.joyThumb.setPosition(targetX, targetY);
+
+            // Мертвая зона
+            if (dist > 5) {
+                scene.virtualInput.left = (targetX < this.joyBase.x - 10);
+                scene.virtualInput.right = (targetX > this.joyBase.x + 10);
+                scene.virtualInput.up = (targetY < this.joyBase.y - 10);
+                scene.virtualInput.down = (targetY > this.joyBase.y + 10);
+            }
+        });
+
+        const stopJoy = () => {
+            this.isDragging = false;
+            this.joyBase.setVisible(false);
+            this.joyThumb.setVisible(false);
+            scene.virtualInput.left = false;
+            scene.virtualInput.right = false;
+            scene.virtualInput.up = false;
+            scene.virtualInput.down = false;
+        };
+
+        scene.input.on('pointerup', stopJoy);
+        scene.input.on('pointerupall', stopJoy);
+
+        // Кнопки действий (справа)
+        const btnAlpha = 0.4;
+        const createActionButton = (x, y, radius, color, label, key) => {
+            const btn = scene.add.circle(x, y, radius, color, btnAlpha).setInteractive().setDepth(6000);
+            const txt = scene.add.text(x, y, label, { fontSize: '12px', fill: '#fff' }).setOrigin(0.5).setDepth(6001);
+            ui.add([btn, txt]);
+
+            btn.on('pointerdown', () => { scene.virtualInput[key] = true; btn.setAlpha(0.8); });
+            btn.on('pointerup', () => { scene.virtualInput[key] = false; btn.setAlpha(btnAlpha); });
+            btn.on('pointerout', () => { scene.virtualInput[key] = false; btn.setAlpha(btnAlpha); });
+        };
+
+        createActionButton(GAME_WIDTH - 45, GAME_HEIGHT - 45, 22, 0xff4444, 'A', 'attack');
+        createActionButton(GAME_WIDTH - 85, GAME_HEIGHT - 35, 16, 0x4444ff, 'S', 'special');
+        createActionButton(GAME_WIDTH - 85, GAME_HEIGHT - 75, 16, 0x44ff44, 'P', 'pickup');
     }
 
     update(player, boss) {
-        // HP
-        const hpRatio = player.hp / player.maxHp;
+        const hpRatio = Phaser.Math.Clamp(player.hp / player.maxHp, 0, 1);
         this.hpFill.width = 80 * hpRatio;
-        this.hpFill.fillColor = hpRatio > 0.5 ? COLOR_HP_GREEN : (hpRatio > 0.25 ? COLOR_YELLOW : COLOR_HP_RED);
-        
-        // Lives
-        this.livesText.setText('❤'.repeat(player.lives));
-        
-        // Score
+        this.hpFill.fillColor = hpRatio > 0.5 ? 0x00ff00 : (hpRatio > 0.25 ? 0xffff00 : 0xff0000);
+        this.livesText.setText('❤'.repeat(Math.max(0, player.lives)));
         this.scoreText.setText('ОЧКИ: ' + player.score);
         
-        // Weapon
         if (player.weapon) {
-            const names = { knife: 'НОЖ', bat: 'БИТА', pistol: 'ПИСТОЛЕТ' };
-            this.weaponText.setText('🔪 ' + (names[player.weapon] || player.weapon));
+            this.weaponText.setText('🔪 ОРУЖИЕ: ' + player.weapon.toUpperCase());
         } else {
             this.weaponText.setText('');
         }
-        
-        // Boss HP
-        if (boss && boss.state !== STATE_DEAD) {
-            this.bossNameText.visible = true;
-            this.bossHpBg.visible = true;
-            this.bossHpFill.visible = true;
-            const bossNames = {
-                skinhead: 'БАНДА СКИНОВ',
-                ment: 'УЧАСТКОВЫЙ',
-                omon: 'ОМОНОВЕЦ'
-            };
-            this.bossNameText.setText(bossNames[boss.type] || 'БОСС');
-            this.bossHpFill.width = 120 * (boss.hp / boss.maxHp);
+
+        if (boss && boss.hp > 0) {
+            this.bossNameText.setVisible(true).setText(boss.type.toUpperCase());
+            this.bossHpFill.setVisible(true).width = 120 * (boss.hp / boss.maxHp);
         } else {
-            this.bossNameText.visible = false;
-            this.bossHpBg.visible = false;
-            this.bossHpFill.visible = false;
+            this.bossNameText.setVisible(false);
+            this.bossHpFill.setVisible(false);
         }
     }
 
-    showGo(visible) {
-        this.goArrow.visible = visible;
-    }
-
-    setLevelName(name) {
-        this.levelText.setText(name);
-    }
+    showGo(visible) { this.goArrow.setVisible(visible); }
+    setLevelName(name) { /* Доп. логика по желанию */ }
 }
