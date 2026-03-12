@@ -1,10 +1,7 @@
 # 🎮 Streets of Russia — Инструкция
 
 **Серёга**, обычный чувак из 90-х. Он просто пытается добраться домой через криминальный район.
-<img width="1648" height="925" alt="image" src="https://github.com/user-attachments/assets/7785e671-08ae-4e33-bf2a-4c1fed7fc6a5" /><img width="1654" height="912" alt="image" src="https://github.com/user-attachments/assets/5ec7dae3-27da-4252-92f3-a585158966f2" /><img width="1639" height="911" alt="image" src="https://github.com/user-attachments/assets/0763dcc6-05c3-409e-90b8-07812437f4d9" />
-<img width="1644" height="919" alt="image" src="https://github.com/user-attachments/assets/616421f7-c090-4e80-9411-4605f11ce26b" />
-
-
+<img width="1648" height="925" alt="image" src="https://github.com/user-attachments/assets/7785e671-08ae-4e33-bf2a-4c1fed7fc6a5" />
 
 
 ---
@@ -23,6 +20,8 @@
 
 ### На телефоне (Chrome):
 На экране появятся виртуальные кнопки (крестовина + кнопки A, S, P)
+
+<img width="1639" height="911" alt="image" src="https://github.com/user-attachments/assets/0763dcc6-05c3-409e-90b8-07812437f4d9" />
 
 ## 👿 Враги
 
@@ -48,6 +47,7 @@
 
 
 ### Уровни:
+
 1. 🌙 **Ночная улица** — первое знакомство с гопниками и нариками
 2. ❄️ **Зимний снегопад** — метель, холод, ещё больше отморозков
 3. 🏭 **Промзона** — заброшенные заводы, опасная территория
@@ -55,7 +55,7 @@
 6. 🏢 **Полицейский участок** — побег из ментовки
 7. 🏠 **Подъезд** — последний рывок до квартиры!
 
----
+<img width="1644" height="919" alt="image" src="https://github.com/user-attachments/assets/616421f7-c090-4e80-9411-4605f11ce26b" />
 
 ## 💡 Советы
 
@@ -66,7 +66,7 @@
 - **Спецудар**: Используй когда окружили — бьёт всех вокруг, но стоит 20 HP
 - **Нарик**: Следи за спиной — он подкрадывается!
 
----
+<img width="1635" height="903" alt="image" src="https://github.com/user-attachments/assets/afb5fb2a-3b2d-444a-9b88-f2dbfd828913" />
 
 ## 🐛 Проблемы?
 
@@ -77,7 +77,9 @@
 | Не работает управление | Кликни по игре чтобы она получила фокус |
 | Мелкое изображение | Игра автоматически масштабируется под окно |
 
----
+<img width="1634" height="916" alt="image" src="https://github.com/user-attachments/assets/53a06eb1-e295-4c3c-a89d-4bdba3b0b471" />
+<img width="1635" height="916" alt="image" src="https://github.com/user-attachments/assets/ab3e20fb-251a-403d-9808-57f4d9d3fa94" />
+
 
 **Удачи! Помоги Сереге добраться до дома! 🏠**
 <img width="1639" height="901" alt="image" src="https://github.com/user-attachments/assets/b1b972a5-e2ba-41ac-bd01-a27fd8f7a982" />
