@@ -65,3 +65,5 @@
 <p align="center">Удачи! Помоги Сереге добраться до дома! 🏠</p>
 <img src="https://github.com/user-attachments/assets/b1b972a5-e2ba-41ac-bd01-a27fd8f7a982" width="800">
 
+[Запустить игру](https://youmakemefry-cmd.github.io/GAME-Streets-of-russia/)
+
